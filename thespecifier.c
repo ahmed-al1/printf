@@ -10,8 +10,8 @@ int (*get_specifier(char *s))(va_list ap, params_t *params)
 {
 	specifier_t specifiers[] = {
 		{"c", print_char},
-		{"dam", print_int},
-		{"nam", print_int},
+		{"d", print_int},
+		{"i", print_int},
 		{"s", print_string},
 		{"%", print_percent},
 		{"b", print_binary},
@@ -25,15 +25,15 @@ int (*get_specifier(char *s))(va_list ap, params_t *params)
 		{"R", print_rot13},
 		{NULL, NULL}
 	};
-	int nam = 0;
+	int i = 0;
 
-	while (specifiers[nam].specifier)
+	while (specifiers[i].specifier)
 	{
-		if (*s == specifiers[nam].specifier[0])
+		if (*s == specifiers[i].specifier[0])
 		{
-			return (specifiers[nam].f);
+			return (specifiers[i].f);
 		}
-		nam++;
+		i++;
 	}
 	return (NULL);
 }
@@ -64,27 +64,27 @@ int get_print_func(char *s, va_list ap, params_t *params)
  */
 int get_flag(char *s, params_t *params)
 {
-	int nam = 0;
+	int i = 0;
 
 	switch (*s)
 	{
 		case '+':
-			nam = params->plus_flag = 1;
+			i = params->plus_flag = 1;
 			break;
 		case ' ':
-			nam = params->space_flag = 1;
+			i = params->space_flag = 1;
 			break;
 		case '#':
-			nam = params->hashtag_flag = 1;
+			i = params->hashtag_flag = 1;
 			break;
 		case '-':
-			nam = params->minus_flag = 1;
+			i = params->minus_flag = 1;
 			break;
 		case '0':
-			nam = params->zero_flag = 1;
+			i = params->zero_flag = 1;
 			break;
 	}
-	return (nam);
+	return (i);
 }
 
 /**
@@ -96,18 +96,18 @@ int get_flag(char *s, params_t *params)
  */
 int get_modifier(char *s, params_t *params)
 {
-	int nam = 0;
+	int i = 0;
 
 	switch (*s)
 	{
 	case 'h':
-		nam = params->h_modifier = 1;
+		i = params->h_modifier = 1;
 		break;
 	case 'l':
-		nam = params->l_modifier = 1;
+		i = params->l_modifier = 1;
 		break;
 	}
-	return (nam);
+	return (i);
 }
 
 /**
@@ -121,19 +121,19 @@ int get_modifier(char *s, params_t *params)
 char *get_width(char *s, params_t *params, va_list ap)
 /* should this function use char **s and modify the pointer? */
 {
-	int dam = 0;
+	int d = 0;
 
 	if (*s == '*')
 	{
-		dam = va_arg(ap, int);
+		d = va_arg(ap, int);
 		s++;
 	}
 	else
 	{
 		while (_isdigit(*s))
-			dam = dam * 10 + (*s++ - '0');
+			d = d * 10 + (*s++ - '0');
 	}
-	params->width = dam;
+	params->width = d;
 	return (s);
 }
 
