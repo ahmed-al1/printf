@@ -1,4 +1,4 @@
-#include "mfile.h"
+#include "main.h"
 
 /**
  * _puts - prints sm string with newline

@@ -1,4 +1,4 @@
-#include "mfile.h"
+#include "main.h"
 
 /**
  * print_char - prints character
